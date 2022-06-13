@@ -1,35 +1,64 @@
 import {
   EuiHeader,
   EuiHeaderLogo,
-  useGeneratedHtmlId,
+  EuiPage,
   EuiPageTemplate,
   EuiSideNav,
+  useGeneratedHtmlId,
   htmlIdGenerator,
-} from '@elastic/eui';
-import ThemeSwitcher from '../components/chrome/theme_switcher';
-import { docsLayout } from './docs.styles';
+} from "@elastic/eui";
+import Link from "next/link";
+import { useState } from "react";
+import ThemeSwitcher from "../components/chrome/theme_switcher";
+import { docsLayout } from "./docs.styles";
 
 const pathPrefix = process.env.PATH_PREFIX;
 
 const DocsLayout = ({ pageHeader, children }) => {
+  const [isSideNavOpenOnMobile, setisSideNavOpenOnMobile] = useState(false);
+
   const sideNav = [
     {
-      name: 'Docs',
-      id: htmlIdGenerator('basicExample')(),
-      items: [
-        {
-          name: 'Home',
-          id: htmlIdGenerator('basicExample')(),
-          href: `${pathPrefix}/docs`,
-        },
-        {
-          name: 'Page 2',
-          id: htmlIdGenerator('basicExample')(),
-          href: `${pathPrefix}/docs/page-2`,
-        },
-      ],
+      name: "Ekran topologije",
+      id: htmlIdGenerator("microgrid")(),
+      renderItem: () => (
+        <Link href={`${pathPrefix}/docs/ekran-topologije`}>
+          Ekran topologije
+        </Link>
+      ),
+    },
+    {
+      name: "Tehno-ekonomski ekran",
+      id: htmlIdGenerator("microgrid")(),
+      renderItem: () => (
+        <Link href={`${pathPrefix}/docs/tehno-ekonomski-ekran`}>
+          Tehno-ekonomski ekran
+        </Link>
+      ),
+    },
+    {
+      name: "Tehnološki ekran",
+      id: htmlIdGenerator("microgrid")(),
+      renderItem: () => (
+        <Link href={`${pathPrefix}/docs/tehnoloski-ekran`}>
+          Tehnološki ekran
+        </Link>
+      ),
+    },
+    {
+      name: "Ekran pozadinskog modela",
+      id: htmlIdGenerator("microgrid")(),
+      renderItem: () => (
+        <Link href={`${pathPrefix}/docs/ekran-pozadinskog-modela`}>
+          Ekran pozadinskog modela
+        </Link>
+      ),
     },
   ];
+
+  const toggleOpenOnMobile = () => {
+    setisSideNavOpenOnMobile(!isSideNavOpenOnMobile);
+  };
 
   const styles = docsLayout();
 
@@ -41,26 +70,47 @@ const DocsLayout = ({ pageHeader, children }) => {
         sections={[
           {
             items: [
-              <EuiHeaderLogo
-                key="elastic-docs"
-                iconType="logoElastic"
-                href={`${pathPrefix}/docs`}>
-                Elastic docs
-              </EuiHeaderLogo>,
+              <Link href={`${pathPrefix}/docs`}>
+                <EuiHeaderLogo
+                  key="elastic-docs"
+                  iconType="/images/micro-grid-logo.png"
+                  style={{ cursor: "pointer" }}
+                >
+                  Microgrid
+                </EuiHeaderLogo>
+              </Link>,
             ],
-            borders: 'none',
+            borders: "none",
           },
           {
             items: [<ThemeSwitcher key={useGeneratedHtmlId()} />],
-            borders: 'none',
+            borders: "none",
           },
         ]}
       />
-      <EuiPageTemplate
-        pageHeader={pageHeader}
-        pageSideBar={<EuiSideNav mobileTitle="Nav Items" items={sideNav} />}>
-        {children}
-      </EuiPageTemplate>
+      <EuiPage
+        restrictWidth={"80vw"}
+        paddingSize="l"
+        style={{ margin: "25px auto" }}
+      >
+        <EuiPageTemplate
+          css={styles.header}
+          pageHeader={pageHeader}
+          pageSideBar={
+            <EuiSideNav
+              css={styles.sidenavitems}
+              items={sideNav}
+              toggleOpenOnMobile={() => toggleOpenOnMobile()}
+              isOpenOnMobile={isSideNavOpenOnMobile}
+            />
+          }
+          template="default"
+          fullHeight="noscroll"
+          paddingSize="s"
+        >
+          {children}
+        </EuiPageTemplate>
+      </EuiPage>
     </div>
   );
 };

@@ -6,6 +6,10 @@ export const globalStyes = css`
     min-height: 100%;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: fit-content;
+    background: #f5f5f5;
+  }
+  .euiPageBody {
+    background: linear-gradient(to top left, white, #d4e3fc);
   }
 `;

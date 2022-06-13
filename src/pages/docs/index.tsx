@@ -6,7 +6,7 @@ const Index: FunctionComponent = () => {
   return (
     <DocsLayout
       pageHeader={{
-        pageTitle: 'Docs home',
+        pageTitle: 'Microgrid',
       }}>
       <EuiText>
         <p>

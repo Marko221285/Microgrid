@@ -32,7 +32,10 @@
     "url": "https://github.com/elastic/next-eui-starter/issues"
   },
   "dependencies": {
-    "@elastic/eui": "^55.1.0"
+    "@elastic/eui": "^55.1.0",
+    "@searchkit/sdk": "^3.0.0-canary.55",
+    "mapbox-gl": "^2.8.2",
+    "react-map-gl": "^7.0.15"
   },
   "devDependencies": {
     "@elastic/datemath": "^5.0.3",
